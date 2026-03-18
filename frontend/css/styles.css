@@ -1,0 +1,214 @@
+:root {
+  --ink: #1b1b1b;
+  --paper: #fbf7ef;
+  --paper-2: #f3ede2;
+  --wash: rgba(0, 0, 0, 0.06);
+  --accent: #2b6cb0;
+  --danger: #b83280;
+  --ok: #2f855a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(43, 108, 176, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 110% 20%, rgba(184, 50, 128, 0.08), transparent 55%),
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 6px),
+    var(--paper);
+  line-height: 1.35;
+}
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+header {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+h1 {
+  font-size: 22px;
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+.sub {
+  font-size: 13px;
+  opacity: 0.75;
+}
+.card {
+  background: linear-gradient(180deg, var(--paper), var(--paper-2));
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow:
+    0 2px 0 var(--ink),
+    0 10px 30px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+.card:before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  pointer-events: none;
+  background:
+    radial-gradient(12px 9px at 20px 14px, rgba(0,0,0,0.16), transparent 65%),
+    radial-gradient(10px 8px at calc(100% - 18px) 16px, rgba(0,0,0,0.12), transparent 70%),
+    radial-gradient(14px 10px at 20px calc(100% - 14px), rgba(0,0,0,0.12), transparent 70%),
+    radial-gradient(12px 9px at calc(100% - 16px) calc(100% - 12px), rgba(0,0,0,0.14), transparent 70%);
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+.grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
+/* Make the map card span full width */
+.map-card {
+  grid-column: 1 / -1;
+}
+.map-view {
+  /* bigger + wider feeling, regardless of screen width */
+  aspect-ratio: auto;
+  height: min(520px, 62vh);
+}
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+}
+.row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+label {
+  font-size: 12px;
+  font-weight: 600;
+}
+input[type="text"], input[type="number"] {
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  padding: 10px 10px;
+  background: rgba(255,255,255,0.55);
+  min-width: 260px;
+  box-shadow: 0 2px 0 var(--ink);
+  outline: none;
+}
+input[type="number"] { min-width: 140px; width: 140px; }
+select {
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  padding: 10px 10px;
+  background: rgba(255,255,255,0.55);
+  box-shadow: 0 2px 0 var(--ink);
+  outline: none;
+  min-width: 220px;
+}
+button {
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.6);
+  box-shadow: 0 2px 0 var(--ink);
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+button.primary { background: rgba(43, 108, 176, 0.18); }
+button.danger { background: rgba(184, 50, 128, 0.16); }
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px dashed var(--ink);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.35);
+  font-size: 12px;
+}
+.dot {
+  width: 10px; height: 10px;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  background: var(--wash);
+}
+.dot.ok { background: rgba(47, 133, 90, 0.55); }
+.dot.bad { background: rgba(184, 50, 128, 0.55); }
+.view {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  border: 2px solid var(--ink);
+  box-shadow: 0 2px 0 var(--ink);
+  background: rgba(0,0,0,0.08);
+  overflow: hidden;
+  position: relative;
+}
+video, img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.caption {
+  font-size: 12px;
+  opacity: 0.75;
+  margin-top: 8px;
+}
+pre {
+  margin: 0;
+  padding: 12px;
+  border-radius: 14px;
+  border: 2px solid var(--ink);
+  background: rgba(255,255,255,0.5);
+  box-shadow: 0 2px 0 var(--ink);
+  overflow: auto;
+  font-size: 12px;
+  min-height: 120px;
+}
+.tiny {
+  font-size: 11px;
+  opacity: 0.8;
+}
+canvas { display: none; }
+.warn {
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: rgba(184, 50, 128, 0.10);
+  padding: 10px 12px;
+  box-shadow: 0 2px 0 var(--ink);
+  font-size: 12px;
+}
+a { color: var(--accent); }
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+/* make Leaflet match our rounded "view" container */
+.leaflet-container {
+  background: rgba(0, 0, 0, 0.06);
+  font: inherit;
+}
+.leaflet-control-container .leaflet-control {
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: 0 2px 0 var(--ink);
+}
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  border-bottom: 2px solid var(--ink);
+}
+
