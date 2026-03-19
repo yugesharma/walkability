@@ -131,6 +131,7 @@ export function map_init({
   setTimeout(invalidate, 0);
   setTimeout(invalidate, 250);
   window.addEventListener("resize", invalidate);
+  window.addEventListener("scroll", invalidate, { passive: true });
 
   function onClick(cb) {
     if (typeof cb !== "function") return () => {};
@@ -143,4 +144,77 @@ export function map_init({
   }
 
   return { map, locateOnce, startTracking, onClick };
+}
+
+export function route_map_init({
+  elId = "routeMap",
+  defaultCenter = [42.27, -71.8],
+  defaultZoom = 13,
+} = {}) {
+  if (!window.L) throw new Error("Leaflet (window.L) not found. Make sure Leaflet is loaded before app.js.");
+
+  const map = L.map(elId, { zoomControl: true }).setView(defaultCenter, defaultZoom);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors",
+    maxZoom: 19,
+  }).addTo(map);
+
+  let polyline = null;
+  let startMarker = null;
+  let endMarker = null;
+
+  function clear() {
+    if (polyline) {
+      map.removeLayer(polyline);
+      polyline = null;
+    }
+    if (startMarker) {
+      map.removeLayer(startMarker);
+      startMarker = null;
+    }
+    if (endMarker) {
+      map.removeLayer(endMarker);
+      endMarker = null;
+    }
+  }
+
+  function renderRoute(points) {
+    clear();
+    if (!Array.isArray(points) || points.length < 2) {
+      map.setView(defaultCenter, defaultZoom);
+      return;
+    }
+
+    const latlngs = points.map((p) => [p.lat, p.lng]);
+    polyline = L.polyline(latlngs, { color: "#2b6cb0", weight: 4, opacity: 0.8 }).addTo(map);
+
+    const start = points[0];
+    const end = points[points.length - 1];
+
+    startMarker = L.circleMarker([start.lat, start.lng], {
+      radius: 8,
+      color: "#1b1b1b",
+      weight: 2,
+      fillColor: "#2f855a",
+      fillOpacity: 0.85,
+    }).addTo(map);
+
+    endMarker = L.circleMarker([end.lat, end.lng], {
+      radius: 8,
+      color: "#1b1b1b",
+      weight: 2,
+      fillColor: "#b83280",
+      fillOpacity: 0.85,
+    }).addTo(map);
+
+    const bounds = L.latLngBounds(latlngs);
+    map.fitBounds(bounds, { padding: [20, 20] });
+  }
+
+  const invalidate = () => map.invalidateSize();
+  setTimeout(invalidate, 0);
+  setTimeout(invalidate, 250);
+  window.addEventListener("resize", invalidate);
+
+  return { map, renderRoute, clear };
 }

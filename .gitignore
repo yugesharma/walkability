@@ -18,3 +18,5 @@ backend/backend/__pycache__/
 backend/backend/*.py[cod]
 backend/backend/.env
 backend/backend/.env.*
+test.py
+setup.md

@@ -16,8 +16,8 @@
     <div class="wrap">
       <header>
         <div>
-          <h1>Sketch Cam Uploader</h1>
-          <div class="sub">Captures a frame every 2s → POSTs to <code>/upload</code> → shows response + latest result.</div>
+          <h1>Walkability</h1>
+          <div class="sub">Score your walk</div>
         </div>
         <div class="pill" title="upload loop status">
           <span id="statusDot" class="dot"></span>
@@ -49,7 +49,7 @@
           <div class="view">
             <video id="video" playsinline autoplay muted></video>
           </div>
-          <div class="caption">Live camera feed (used for captures).</div>
+          <div class="caption">Live camera feed</div>
           <canvas id="canvas"></canvas>
         </div>
 
@@ -58,7 +58,7 @@
             <img id="resultImg" alt="latest server result" />
           </div>
           <div class="tiny" style="margin-bottom: 10px;">
-            Latest annotated result (served from <code>/latest-result</code> if your backend supports it).
+            Real time analysis and score
           </div>
           <pre id="output">{}</pre>
           <div id="warn" class="warn" style="display:none; margin-top: 10px;"></div>
@@ -66,7 +66,7 @@
 
         <div class="card map-card">
           <div class="row" style="justify-content: space-between; align-items:center;">
-            <div class="tiny">Map (uses OpenStreetMap tiles). Click to copy lat/lng.</div>
+            <div class="tiny">Current location </div>
             <div style="display:inline-flex; gap:8px; align-items:center;">
               <span id="clickText" class="tiny" aria-live="polite"></span>
               <span id="locText" class="tiny" aria-live="polite"></span>
@@ -75,6 +75,43 @@
           </div>
           <div class="view map-view" style="margin-top: 10px;">
             <div id="map" aria-label="map"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row" style="justify-content: space-between;">
+            <div>
+              <div style="font-weight: 800; margin-bottom: 4px;">Completed walks</div>
+              <div class="tiny">Select a walk to render its route.</div>
+            </div>
+            <div>
+              <button id="walksBtn" type="button">Refresh</button>
+              <div id="walksSummary" class="tiny" style="margin-top: 6px;" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <table id="walksTable" class="walks-table" style="margin-top: 12px;">
+            <thead>
+              <tr>
+                <th>Walk</th>
+                <th>Started</th>
+                <th>Average score</th>
+                <th>Frames</th>
+              </tr>
+            </thead>
+            <tbody id="walksTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="row" style="justify-content: space-between; margin-bottom: 10px;">
+            <div>
+              <div style="font-weight: 800; margin-bottom: 4px;">Selected walk route</div>
+              <div id="routeSummary" class="tiny">No walk selected yet.</div>
+            </div>
+          </div>
+          <div class="view map-view" style="margin-top: 0;">
+            <div id="routeMap" aria-label="route map"></div>
           </div>
         </div>
       </div>

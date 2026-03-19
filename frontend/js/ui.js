@@ -15,6 +15,11 @@ export function getEls() {
     locateBtn: document.getElementById("locateBtn"),
     locText: document.getElementById("locText"),
     clickText: document.getElementById("clickText"),
+    walksBtn: document.getElementById("walksBtn"),
+    walksSummary: document.getElementById("walksSummary"),
+    walksTable: document.getElementById("walksTable"),
+    walksTableBody: document.getElementById("walksTableBody"),
+    routeSummary: document.getElementById("routeSummary"),
   };
 }
 
